@@ -2,9 +2,9 @@ Small(?) project to learn how to C.
 
 Criteria:
 
-* [] You'll probably need standard library functions like those in string.h (http://pubs.opengroup.org/onlinepubs/7908799/xsh/string.h.html). Implement them as you need them. Don't do it all at once.
-* [] Figure out how to use scanf to read user input and print it back with printf.
-* [] Figure out how to use malloc and free and secure the user input from overflows using the %ms format specifier with scanf.
+* [Y] You'll probably need standard library functions like those in string.h (http://pubs.opengroup.org/onlinepubs/7908799/xsh/string.h.html). Implement them as you need them. Don't do it all at once.
+* [Y] Figure out how to use scanf to read user input and print it back with printf.
+* [Y] Figure out how to use malloc and free and secure the user input from overflows using the %ms format specifier with scanf.
 * [] Implement an "offline" simple HTTP server: the user will type a simple HTTP GET request (e.g. "GET /something HTTP/1.0\r\n") and you'll print back some arbitrary data depending on the request uri.
 * [] Figure out how to read and write files and list directory contents. Write dumbed down versions of ls and cat. You may use standard library functions for this. (Hint: you'll need to figure out how argc and *argv[] work.)
 * [] Figure out how to send and receive data to/from TCP sockets. Just write a simple server you can talk to with telnet. After you send a message to it with telnet, print that message to the console (you may use printf) and send back a message through the socket informing the client that you correctly received it. There was a really good document about socket programming but I can't find it. In the meanwhile this (http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html) should suffice.

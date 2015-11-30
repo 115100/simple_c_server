@@ -1,18 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
+void assign_input(char *userInput)
 {
-    int n;
-    char *userInput;
-
     printf("Type something: ");
-    n = scanf("%ms", &userInput);
-
-    printf("%d\n", n);
-    printf("You typed: %s\n", userInput);
-
-    free(userInput);
-
-    return 0;
+    scanf("%ms", &userInput);
 }
