@@ -8,4 +8,4 @@ typedef struct
     char* protocol;
 } Request;
 
-#endif
+#endif // TYPES_H

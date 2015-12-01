@@ -1,9 +1,4 @@
-#ifndef STRING_H
-
-#include "string.c"
-
-
-#endif
+#include "string.h"
 
 char* get(char* resource)
 {

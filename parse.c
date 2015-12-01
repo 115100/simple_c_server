@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "include/types.h"
+#include "types.h"
 
 // Take and parse user HTTP request
 Request request_parse()

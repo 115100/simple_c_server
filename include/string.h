@@ -5,4 +5,4 @@
 void *memcpy(void *s1, const void *s2, size_t n);
 int strcmp(const char *s1, const char *s2);
 
-#endif
+#endif // STRING_H

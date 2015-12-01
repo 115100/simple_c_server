@@ -1,5 +1,6 @@
-#include "parse.c"
-#include "server.c"
+#include "parse.h"
+#include "server.h"
+#include "types.h"
 
 int main()
 {
