@@ -9,6 +9,8 @@ void* memcpy(void* s1, const void* s2, size_t n)
     {
         dest[i] = source[i];
     }
+
+    return s1;
 } 
 
 int strcmp(const char* s1, const char* s2)
