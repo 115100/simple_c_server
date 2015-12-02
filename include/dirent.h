@@ -1,3 +1,6 @@
+#ifndef DIRENT_H
+#define DIRENT_H
+
 #define NAME_MAX 255
 
 typedef struct
@@ -15,3 +18,5 @@ typedef struct
 DIR* opendir(char* dirname);
 Dirent* readdir(DIR* dfd);
 void closedir(DIR* dfd);
+
+#endif // DIRENT_H
