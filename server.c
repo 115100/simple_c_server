@@ -2,7 +2,7 @@
 #include "server.h"
 #include "string.h"
 
-char* get(char* resource)
+char *get(char *resource)
 {
     // Simple ping/pong response; case sensitive
     if (!strcmp(resource, "/ping"))
@@ -16,9 +16,9 @@ char* get(char* resource)
     }
 }
 
-int execute_request(Request* req)
+int execute_request(Request *req)
 {
-    char* response;
+    char *response;
 
     // Support just GET for now
     // TODO: Refactor so that it goes from resource -> method instead

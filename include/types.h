@@ -3,9 +3,9 @@
 
 typedef struct
 {
-    char* method;
-    char* resource;
-    char* protocol;
+    char *method;
+    char *resource;
+    char *protocol;
 } Request;
 
 #endif // TYPES_H

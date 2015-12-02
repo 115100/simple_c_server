@@ -15,8 +15,8 @@ typedef struct
     Dirent d; // directory entry
 } DIR;
 
-DIR* opendir(char* dirname);
-Dirent* readdir(DIR* dfd);
-void closedir(DIR* dfd);
+DIR *opendir(char *dirname);
+Dirent *readdir(DIR *dfd);
+void closedir(DIR *dfd);
 
 #endif // DIRENT_H

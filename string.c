@@ -1,9 +1,9 @@
 #include "string.h"
 
-void* memcpy(void* s1, const void* s2, size_t n)
+void *memcpy(void *s1, const void *s2, size_t n)
 {
-    char* dest = s1;
-    const char* source = s2;
+    char *dest = s1;
+    const char *source = s2;
 
     for (int i=0; i<n; i++)
     {
@@ -13,7 +13,7 @@ void* memcpy(void* s1, const void* s2, size_t n)
     return s1;
 } 
 
-int strcmp(const char* s1, const char* s2)
+int strcmp(const char *s1, const char *s2)
 {
     int i = 0;
 
