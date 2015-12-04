@@ -29,3 +29,13 @@ int strcmp(const char *s1, const char *s2)
 
     return s1[i] - s2[i];
 }
+
+size_t strlen(const char *s)
+{
+   const char *str;
+
+   for (str = s; *str; ++s)
+       ;
+
+   return str - s;
+}
