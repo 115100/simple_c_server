@@ -2,8 +2,9 @@
 #include <limits.h>
 #include <stdio.h>
 
-#include "include/ls.h"
-#include "include/string.h"
+#include "ls.h"
+#include "string.h"
+
 
 void list_files(char *dir)
 {

@@ -1,6 +1,8 @@
 #include <stdio.h>
+
 #include "parse.h"
 #include "types.h"
+
 
 // Take and parse user HTTP request
 Request request_parse()

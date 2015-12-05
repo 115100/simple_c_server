@@ -1,4 +1,7 @@
-#include "include/cat.h"
+#include <stdio.h>
+
+#include "cat.h"
+
 
 int cat(char *file)
 {
@@ -20,5 +23,12 @@ int cat(char *file)
         }
     }
 
+    return 0;
+}
+
+
+int main()
+{
+    cat("pinasjfnsjdf");
     return 0;
 }

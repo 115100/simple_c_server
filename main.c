@@ -2,6 +2,7 @@
 #include "server.h"
 #include "types.h"
 
+
 int main()
 {
     // TODO: Optionally read from CLI instead of prompting for input
