@@ -19,7 +19,7 @@ int cat(char *file)
         
         while ((c = getc(fp)) != EOF)
         {
-            putc(c, stdout); // TODO: Write to socket
+            putc(c, stdout); // TODO: Write to response.body
         }
     }
 
