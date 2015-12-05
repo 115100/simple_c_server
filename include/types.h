@@ -10,9 +10,9 @@ typedef struct
 
 typedef struct
 {
-    char *statusCode;
-    char *headers[];
     char *body;
+    char *headers[];
+    int statusCode;
 } Response;
 
 #endif // TYPES_H
