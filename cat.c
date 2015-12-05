@@ -25,10 +25,3 @@ int cat(char *file)
 
     return 0;
 }
-
-
-int main()
-{
-    cat("pinasjfnsjdf");
-    return 0;
-}
