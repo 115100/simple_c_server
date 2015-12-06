@@ -11,8 +11,8 @@ typedef struct
 typedef struct
 {
     char *body;
-    char *headers[];
     int statusCode;
+    char *headers[];
 } Response;
 
 #endif // TYPES_H

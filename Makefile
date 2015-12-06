@@ -1,4 +1,4 @@
-CFLAGS=-Iinclude -std=c99
+CFLAGS=-Iinclude -std=c99 -O2
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<

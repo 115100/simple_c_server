@@ -1,5 +1,5 @@
 #include <dirent.h>
-#include <limits.h>
+#include <linux/limits.h>
 #include <stdio.h>
 
 #include "ls.h"
