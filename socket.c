@@ -68,27 +68,34 @@ int accept_connection(struct addrinfo *res)
 
     return newFD;
 }
-/* EXAMPLE USAGE
+/*
 int main()
 {
     // Listen for and accept a new connection
 
     struct addrinfo *res;
 
-    int bytesSent, connectionFD, len;
+    int bytesReceived, bytesSent, connectionFD, len;
 
     char *msg = "Wake up, Neo...\r\n";
+
+    char received[100];
 
     if ((connectionFD = accept_connection(res)) == -1)
     {
         return -1;
     }
 
-    len = strlen(msg);
+    bytesReceived = recv(connectionFD, received, 100, 0);
 
-    bytesSent = send(connectionFD, msg, len, 0);
+    received[bytesReceived] = '\0';
 
+    bytesSent = send(connectionFD, received, bytesReceived, 0);
+
+    printf("Bytes received: %d\n", bytesReceived);
     printf("Bytes sent: %d\n", bytesSent);
+
+    close(connectionFD);
 
     return 0;
 }
