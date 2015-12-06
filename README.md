@@ -1,5 +1,7 @@
 Small(?) project to learn how to C.
 
+Run `export CC=/path/to/clang` or set `-std=gnu99` in `Makefile` otherwise this will fail to compile.
+
 Build with `make`.
 
 Criteria:
