@@ -46,17 +46,13 @@ int bind_socket(struct addrinfo *res)
     }
 }
 
-int accept_connection(struct addrinfo *res)
+
+int accept_connection(int listenFD)
 {
     struct sockaddr_storage theirAddr;
     socklen_t addrSize;
 
-    int listenFD, newFD;
-
-    if ((listenFD = bind_socket(res)) == -1)
-    {
-        return -1;
-    }
+    int newFD;
 
     // Listen for connections
 
@@ -68,35 +64,3 @@ int accept_connection(struct addrinfo *res)
 
     return newFD;
 }
-/*
-int main()
-{
-    // Listen for and accept a new connection
-
-    struct addrinfo *res;
-
-    int bytesReceived, bytesSent, connectionFD, len;
-
-    char *msg = "Wake up, Neo...\r\n";
-
-    char received[100];
-
-    if ((connectionFD = accept_connection(res)) == -1)
-    {
-        return -1;
-    }
-
-    bytesReceived = recv(connectionFD, received, 100, 0);
-
-    received[bytesReceived] = '\0';
-
-    bytesSent = send(connectionFD, received, bytesReceived, 0);
-
-    printf("Bytes received: %d\n", bytesReceived);
-    printf("Bytes sent: %d\n", bytesSent);
-
-    close(connectionFD);
-
-    return 0;
-}
-*/

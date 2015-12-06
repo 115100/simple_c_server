@@ -5,12 +5,11 @@
 
 
 // Take and parse user HTTP request
-Request request_parse()
+Request request_parse(char *queryString)
 {
     Request req;
 
-    printf("Request: ");
-    scanf("%ms %ms %ms", &(req.method), &(req.resource), &(req.protocol));
+    sscanf(queryString, "%ms %ms %ms", &(req.method), &(req.resource), &(req.protocol));
 
     return req;
 }

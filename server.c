@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "server.h"
 #include "string.h"
@@ -17,29 +18,26 @@ char *get(char *resource)
     }
 }
 
-int execute_request(Request *req)
+Response build_response(Request *req)
 {
-    char *response;
+    Response resp;
+    char *responseBody;
 
-    // Support just GET for now
-    // TODO: Refactor so that it goes from resource -> method instead
-    // of method -> resource
     if (strcmp(req->protocol, "HTTP/1.0") != 0)
     {
         fprintf(stderr, "Protocol `%s` not implemented\n", req->protocol);
-        return 1;
+        return resp;
     }
 
     if (strcmp(req->method, "GET") == 0)
     {
-        response = get(req->resource);
+        resp.body = get(req->resource);
     }
+
     else
     {
         fprintf(stderr, "Not Implemented");
-        return 501;
     }
 
-    printf("%s", response);
-    return 0;    
+    return resp;
 }

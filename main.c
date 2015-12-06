@@ -1,26 +1,47 @@
 #include "parse.h"
 #include "server.h"
+#include "socket.h"
+#include "string.h"
 #include "types.h"
 
 
 int main()
 {
-    // TODO: Optionally read from CLI instead of prompting for input
     Request req;
-    int statusCode;
+    Response resp;
 
-    req = request_parse();
+    char queryString[100];
+    int listenFD, connectionFD, bytesReceived, len, statusCode;
+    struct addrinfo *res;
 
-    statusCode = execute_request(&req);
+    if ((listenFD = bind_socket(res)) == -1)
+    {
+        return -1;
+    }
+
+    if ((connectionFD = accept_connection(listenFD)) == -1)
+    {
+        return -1;
+    }
+
+    bytesReceived = recv(connectionFD, queryString, 100, 0);
+
+
+    queryString[bytesReceived] = '\0';
+
+    req = request_parse(queryString);
+
+    resp = build_response(&req);
+
+    send(connectionFD, resp.body, strlen(resp.body) + 1, 0);
+
+    // Free/close all handles/mallocs
 
     free(req.method);
     free(req.resource);
     free(req.protocol);
-
-    if(!(200 <= statusCode < 400))
-    {
-        return 1;
-    }
+    close(listenFD);
+    close(connectionFD);
 
     return 0;
 }

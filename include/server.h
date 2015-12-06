@@ -3,6 +3,6 @@
 #include "types.h"
 
 char *get(char *resource);
-int execute_request(Request *req);
+Response build_response(Request *req);
 
 #endif // SERVER_H
