@@ -11,7 +11,7 @@ int main()
     Response resp;
 
     char queryString[100];
-    int listenFD, connectionFD, bytesReceived, len, statusCode;
+    int listenFD, connectionFD, bytesReceived;
     struct addrinfo *res;
 
     if ((listenFD = bind_socket(res)) == -1)
