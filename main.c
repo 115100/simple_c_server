@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <unistd.h>
+
 #include "parse.h"
 #include "server.h"
 #include "socket.h"
