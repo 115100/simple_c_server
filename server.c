@@ -6,7 +6,7 @@
 char *get(char *resource)
 {
     // Simple ping/pong response; case sensitive
-    if (!strcmp(resource, "/ping"))
+    if (strcmp(resource, "/ping") == 0)
     {
         return "pong";
     }
@@ -24,19 +24,19 @@ int execute_request(Request *req)
     // Support just GET for now
     // TODO: Refactor so that it goes from resource -> method instead
     // of method -> resource
-    if (strcmp(req->protocol, "HTTP/1.0"))
+    if (strcmp(req->protocol, "HTTP/1.0") != 0)
     {
-        printf("Protocol `%s` not implemented\n", req->protocol);
+        fprintf(stderr, "Protocol `%s` not implemented\n", req->protocol);
         return 1;
     }
 
-    if (!strcmp(req->method, "GET"))
+    if (strcmp(req->method, "GET") == 0)
     {
         response = get(req->resource);
     }
     else
     {
-        printf("Not Implemented");
+        fprintf(stderr, "Not Implemented");
         return 501;
     }
 

@@ -7,17 +7,17 @@ int main()
 {
     // TODO: Optionally read from CLI instead of prompting for input
     Request req;
-    int status_code;
+    int statusCode;
 
     req = request_parse();
 
-    status_code = execute_request(&req);
+    statusCode = execute_request(&req);
 
     free(req.method);
     free(req.resource);
     free(req.protocol);
 
-    if(!(200 <= status_code < 400))
+    if(!(200 <= statusCode < 400))
     {
         return 1;
     }
