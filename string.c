@@ -13,6 +13,20 @@ void *memcpy(void *s1, const void *s2, size_t n)
     return s1;
 } 
 
+void *memset(void *s, int c, size_t n)
+{
+    char *dest = s;
+    const char copyChar = (char) c;
+
+    for (int i=0; i<n; i++)
+    {
+        dest[i] = copyChar;
+    }
+
+    return s;
+}
+
+
 int strcmp(const char *s1, const char *s2)
 {
     int i = 0;
@@ -32,10 +46,10 @@ int strcmp(const char *s1, const char *s2)
 
 size_t strlen(const char *s)
 {
-   const char *str;
+   const char *c;
 
-   for (str = s; *str; ++s)
+   for (c = s; *c; ++c)
        ;
 
-   return str - s;
+   return (c - s);
 }
