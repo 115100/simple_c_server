@@ -5,8 +5,14 @@
 #include "socket.h"
 #include "string.h"
 
+#ifndef APP_PORT
 #define APP_PORT "8080"
+#endif
+
+
+#ifndef BACKLOG
 #define BACKLOG 10
+#endif
 
 
 int bind_socket(struct addrinfo *res)
@@ -59,7 +65,7 @@ int accept_connection(struct addrinfo *res)
 
     addrSize = sizeof(theirAddr);
 
-    newFD = accept(listenFD, (struct addrinfo *) &theirAddr, &addrSize);
+    newFD = accept(listenFD, (struct sockaddr *) &theirAddr, &addrSize);
 
     return newFD;
 }
