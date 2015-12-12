@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "string.h"
 
 void *memcpy(void *s1, const void *s2, size_t n)
@@ -27,21 +28,34 @@ void *memset(void *s, int c, size_t n)
 }
 
 
+char *strcat(char *s1, const char *s2)
+{
+    while (*s1)
+    {
+        s1++;
+    }
+
+    while (*s1++ = *s2++)
+        ;
+
+    return s1;
+}
+
+
 int strcmp(const char *s1, const char *s2)
 {
-    int i = 0;
-
-    while (s1[i] != '\0' && s2[i] != '\0')
+    while (*s1 && *s2)
     {
-        if (s1[i] != s2[i])
+        if (*s1 != *s2)
         {
             break;
         }
 
-        i++;
+        s1++;
+        s2++;
     }
 
-    return s1[i] - s2[i];
+    return *s1 - *s2;
 }
 
 size_t strlen(const char *s)
