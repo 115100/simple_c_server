@@ -20,7 +20,7 @@ void list_files(char *dir)
 
     while ((dp = readdir(dfd)) != NULL)
     {
-        if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."))
+        if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0)
         {
             continue;
         }
@@ -32,8 +32,32 @@ void list_files(char *dir)
 
         else
         {
-            sprintf(name, "%s/%s", dir, dp->d_name);
-            printf("%s\n", name);
+            // If directory, recurse.
+            if (dp->d_type == DT_DIR)
+            {
+                char newFolder[PATH_MAX];
+
+                if (dir[strlen(dir) - 1] == '/')
+                {
+                    strcat(newFolder, dir);
+                }
+
+                else
+                {
+                    strcat(newFolder, dir);
+                    strcat(newFolder, "/");
+                }
+
+
+                list_files(strcat(newFolder, dp->d_name));
+            }
+
+            else
+            {
+                sprintf(name, "%s/%s", dir, dp->d_name);
+                printf("%s\n", name);
+            }
         }
+
     }
 }
