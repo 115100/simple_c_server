@@ -1,12 +1,12 @@
-#include <stdio.h>
 #include "string.h"
+
 
 void *memcpy(void *s1, const void *s2, size_t n)
 {
     char *dest = s1;
     const char *source = s2;
 
-    for (int i=0; i<n; i++)
+    for (size_t i=0; i<n; i++)
     {
         dest[i] = source[i];
     }
@@ -19,7 +19,7 @@ void *memset(void *s, int c, size_t n)
     char *dest = s;
     const char copyChar = (char) c;
 
-    for (int i=0; i<n; i++)
+    for (size_t i=0; i<n; i++)
     {
         dest[i] = copyChar;
     }
