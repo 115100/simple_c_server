@@ -14,6 +14,7 @@ void *memcpy(void *s1, const void *s2, size_t n)
     return s1;
 } 
 
+
 void *memset(void *s, int c, size_t n)
 {
     char *dest = s;
@@ -35,8 +36,7 @@ char *strcat(char *s1, const char *s2)
         s1++;
     }
 
-    while (*s1++ = *s2++)
-        ;
+    while (*s1++ = *s2++);
 
     return s1;
 }
@@ -58,12 +58,12 @@ int strcmp(const char *s1, const char *s2)
     return *s1 - *s2;
 }
 
+
 size_t strlen(const char *s)
 {
    const char *c;
 
-   for (c = s; *c; ++c)
-       ;
+   for (c = s; *c; ++c);
 
    return (c - s);
 }

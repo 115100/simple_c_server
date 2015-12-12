@@ -62,7 +62,13 @@ int list_files(char *dir, char *search)
             }
         }
 
+        if (found)
+        {
+            break;
+        }
+
     }
 
+    closedir(dfd);
     return found;
 }
