@@ -6,16 +6,17 @@
 #include "string.h"
 
 
-void list_files(char *dir)
+int list_files(char *dir, char *search)
 {
     char name[PATH_MAX];
     struct dirent *dp;
     DIR *dfd;
+    int found = 0;
 
     if ((dfd = opendir(dir)) == NULL)
     {
         fprintf(stderr, "Can't open %s\n", dir);
-        return;
+        return -1;
     }
 
     while ((dp = readdir(dfd)) != NULL)
@@ -32,7 +33,7 @@ void list_files(char *dir)
 
         else
         {
-            // If directory, recurse.
+            // If directory, recurse; do not compare for search
             if (dp->d_type == DT_DIR)
             {
                 char newFolder[PATH_MAX];
@@ -44,20 +45,24 @@ void list_files(char *dir)
 
                 else
                 {
-                    strcat(newFolder, dir);
-                    strcat(newFolder, "/");
+                    sprintf(newFolder, "%s/", dir);
                 }
 
-
-                list_files(strcat(newFolder, dp->d_name));
+                found = list_files(strcat(newFolder, dp->d_name), search);
             }
 
             else
             {
-                sprintf(name, "%s/%s", dir, dp->d_name);
-                printf("%s\n", name);
+                strcat(name, dp->d_name);
+
+                if (strcmp(name, search) == 0)
+                {
+                    found = 1;
+                }
             }
         }
 
     }
+
+    return found;
 }

@@ -1,6 +1,6 @@
 #ifndef LS_H
 #define LS_H
 
-void list_files(char *name);
+int list_files(char *name, char *search);
 
 #endif // LS_H
