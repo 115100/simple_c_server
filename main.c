@@ -34,13 +34,14 @@ int main()
     req = request_parse(queryString);
 
     resp = build_response(&req);
+    printf("Body: %s\n", resp.body);
+    printf("Length: %d\n", strlen(resp.body));
 
     send(connectionFD, resp.body, strlen(resp.body) + 1, 0);
 
     // Free/close all handles/mallocs
     close(listenFD);
     close(connectionFD);
-    free(req.method);
 
     return 0;
 }

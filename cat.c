@@ -10,15 +10,7 @@ int cat(char *file, char **body)
 {
     FILE *fp;
 
-    char fullPath[PATH_MAX];
-    const char *path = "html/";
-
-    memset(fullPath, 0, PATH_MAX);
-
-    strcat(fullPath, path);
-    strcat(fullPath, file);
-
-    if ((fp = fopen(fullPath, "r")) == NULL)
+    if ((fp = fopen(file, "r")) == NULL)
     {
         fprintf(stderr, "Can't open file %s\n", file);
         return 1;

@@ -9,7 +9,10 @@ Request request_parse(char *queryString)
 {
     Request req;
 
-    sscanf(queryString, "%ms %ms %ms", &(req.method), &(req.resource), &(req.protocol));
+    if (sscanf(queryString, "%ms %ms %ms", &(req.method), &(req.resource), &(req.protocol)) == EOF)
+    {
+        fprintf(stderr, "Query doesn't match pattern: %s\n", queryString);
+    }
 
     return req;
 }

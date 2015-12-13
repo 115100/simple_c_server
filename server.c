@@ -1,3 +1,4 @@
+#include <linux/limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,12 +10,14 @@
 
 void get(Response *resp, char *resource)
 {
-    char *filename;
+    char filename[PATH_MAX];
+    char *searchFolder = "html";
 
-    // Get without the first forward slash
-    sscanf(resource, "/%ms", &filename);
+    memset(filename, 0, PATH_MAX);
 
-    // Simple ping/pong response; case sensitive
+    strcat(filename, searchFolder);
+    strcat(filename, resource);
+
     if (find_resource("html", filename) == 1)
     {
         free(resource);
@@ -22,7 +25,10 @@ void get(Response *resp, char *resource)
         cat(filename, &(resp->body));
     }
 
-    free(filename);
+    else
+    {
+        resp->body = "";
+    }
 }
 
 Response build_response(Request *req)

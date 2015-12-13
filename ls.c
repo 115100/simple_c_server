@@ -55,7 +55,7 @@ int find_resource(char *dir, char *search)
 
             else
             {
-                strcat(name, dp->d_name);
+                sprintf(name, "%s/%s", dir, dp->d_name);
 
                 if (strcmp(name, search) == 0)
                 {
