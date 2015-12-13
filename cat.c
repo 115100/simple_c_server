@@ -1,3 +1,4 @@
+#include <linux/limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -5,11 +6,19 @@
 #include "string.h"
 
 
-int cat(char *file, char *body)
+int cat(char *file, char **body)
 {
     FILE *fp;
 
-    if ((fp = fopen(file, "r")) == NULL)
+    char fullPath[PATH_MAX];
+    const char *path = "html/";
+
+    memset(fullPath, 0, PATH_MAX);
+
+    strcat(fullPath, path);
+    strcat(fullPath, file);
+
+    if ((fp = fopen(fullPath, "r")) == NULL)
     {
         fprintf(stderr, "Can't open file %s\n", file);
         return 1;
@@ -22,25 +31,25 @@ int cat(char *file, char *body)
 
     fileLength = ftell(fp);
 
-    fseek(fp, 0, SEEK_SET);
-
-    char *originalPointer = body;
+    rewind(fp);
 
     // Null byte?
-    body = malloc(fileLength + 2);
+    char *newPtr = malloc(sizeof(char) * fileLength + 2);
+
+    *body = newPtr;
 
     // There's probably a better way to do this
     while ((c = getc(fp)) != EOF)
     {
-        *originalPointer = (char) c;
-        originalPointer++;
+        *newPtr = (char) c;
+        newPtr++;
     }
 
     // Terminating byte
-    *originalPointer = '\0';
+    *newPtr = '\0';
 
-    close(fp);
+    fclose(fp);
 
-    // Don't forget to free *body
+    // Don't forget to free body
     return 0;
 }
