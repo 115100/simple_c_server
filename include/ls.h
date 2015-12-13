@@ -1,6 +1,6 @@
 #ifndef LS_H
 #define LS_H
 
-int list_files(char *name, char *search);
+int find_resource(char *dir, char *search);
 
 #endif // LS_H

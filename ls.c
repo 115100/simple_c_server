@@ -6,7 +6,7 @@
 #include "string.h"
 
 
-int list_files(char *dir, char *search)
+int find_resource(char *dir, char *search)
 {
     char name[PATH_MAX];
     struct dirent *dp;
@@ -28,7 +28,7 @@ int list_files(char *dir, char *search)
 
         if (strlen(dir) + strlen(dp->d_name) + 2 > sizeof(name))
         {
-            fprintf(stderr, "Can't open %s\n", dir);
+            fprintf(stderr, "Can't open %s\n; path too long", dir);
         }
 
         else
@@ -37,6 +37,7 @@ int list_files(char *dir, char *search)
             if (dp->d_type == DT_DIR)
             {
                 char newFolder[PATH_MAX];
+                memset(newFolder, 0, PATH_MAX);
 
                 if (dir[strlen(dir) - 1] == '/')
                 {
@@ -48,7 +49,8 @@ int list_files(char *dir, char *search)
                     sprintf(newFolder, "%s/", dir);
                 }
 
-                found = list_files(strcat(newFolder, dp->d_name), search);
+                strcat(newFolder, dp->d_name);
+                found = find_resource(newFolder, search);
             }
 
             else
