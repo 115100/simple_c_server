@@ -29,7 +29,6 @@ int main()
 
     bytesReceived = recv(connectionFD, queryString, 100, 0);
 
-
     queryString[bytesReceived] = '\0';
 
     req = request_parse(queryString);
@@ -39,12 +38,9 @@ int main()
     send(connectionFD, resp.body, strlen(resp.body) + 1, 0);
 
     // Free/close all handles/mallocs
-
-    free(req.method);
-    free(req.resource);
-    free(req.protocol);
     close(listenFD);
     close(connectionFD);
+    free(req.method);
 
     return 0;
 }
