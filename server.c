@@ -1,27 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "cat.h"
+#include "ls.h"
 #include "server.h"
 #include "string.h"
+#include "types.h"
 
-char *get(char *resource)
+void get(Response *resp, char *resource)
 {
+    char *filename;
+
+    // Get without the first forward slash
+    sscanf(resource, "/%ms", &filename);
+
     // Simple ping/pong response; case sensitive
-    if (strcmp(resource, "/ping") == 0)
+    if (find_resource("html", filename) == 1)
     {
-        return "pong";
+        free(resource);
+
+        cat(filename, &(resp->body));
     }
-    // 404?
-    else
-    {
-        return "";
-    }
+
+    free(filename);
 }
 
 Response build_response(Request *req)
 {
     Response resp;
-    char *responseBody;
 
     if (strcmp(req->protocol, "HTTP/1.0") != 0)
     {
@@ -29,15 +35,20 @@ Response build_response(Request *req)
         return resp;
     }
 
+    free(req->protocol);
+
     if (strcmp(req->method, "GET") == 0)
     {
-        resp.body = get(req->resource);
+        get(&resp, req->resource);
     }
 
     else
     {
-        fprintf(stderr, "Not Implemented");
+        fprintf(stderr, "Not Implemented\n");
     }
+
+    free(req->method);
+    free(req->resource);
 
     return resp;
 }
