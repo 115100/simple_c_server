@@ -12,7 +12,6 @@ SRC_ASM = $(wildcard *.asm)
 OBJ = $(SRC_C:.c=.o) $(SRC_ASM:.asm=.o)
 
 simple_c_server: $(OBJ)
-	@echo $(OBJ)
 	$(CC) -o $@ $+
 
 .PHONY: clean
