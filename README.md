@@ -1,4 +1,4 @@
-Small(?) project to learn how to C.
+Small(?) project to learn how to ASM/C.
 
 Build with `make`.
 

@@ -57,13 +57,3 @@ int strcmp(const char *s1, const char *s2)
 
     return *s1 - *s2;
 }
-
-
-size_t strlen(const char *s)
-{
-   const char *c;
-
-   for (c = s; *c; ++c);
-
-   return (c - s);
-}

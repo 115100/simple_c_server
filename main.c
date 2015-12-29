@@ -35,7 +35,7 @@ int main()
 
     resp = build_response(&req);
     printf("Body: %s\n", resp.body);
-    printf("Length: %d\n", strlen(resp.body));
+    printf("Length: %d\n", strlen("Blah"));
 
     send(connectionFD, resp.body, strlen(resp.body) + 1, 0);
 
