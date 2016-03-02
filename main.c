@@ -10,36 +10,41 @@
 
 int main()
 {
-    Request req;
-    Response resp;
+	Request req;
 
-    char queryString[100];
-    int listenFD, connectionFD, bytesReceived;
-    struct addrinfo *res;
+	int listenFD, connectionFD;
+	struct addrinfo *res;
 
-    if ((listenFD = bind_socket(res)) == -1)
-    {
-        return -1;
-    }
+	if ((listenFD = bind_socket(res)) == -1)
+	{
+		return 127;
+	}
 
-    if ((connectionFD = accept_connection(listenFD)) == -1)
-    {
-        return -1;
-    }
+	while (1)
+	{
+		if ((connectionFD = accept_connection(listenFD)) == -1)
+		{
+			return 127;
+		}
 
-    bytesReceived = recv(connectionFD, queryString, 100, 0);
+		if (client_request(connectionFD, &req))
+		{
+			return 400;
+		}
 
-    queryString[bytesReceived] = '\0';
+		if (respond_to_client(connectionFD, &req))
+		{
+			return 500;
+		}
 
-    req = request_parse(queryString);
+		free(req.method);
+		free(req.resource);
+		free(req.protocol);
+		close(connectionFD);
+	}
 
-    resp = build_response(&req);
+	// Free/close all handles/mallocs
+	close(listenFD);
 
-    send(connectionFD, resp.body, strlen(resp.body) + 1, 0);
-
-    // Free/close all handles/mallocs
-    close(listenFD);
-    close(connectionFD);
-
-    return 0;
+	return 0;
 }

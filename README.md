@@ -2,6 +2,12 @@ Small(?) project to learn how to ASM/C.
 
 Build with `make`.
 
+Run with `./simple_c_server`.
+
+Test with `curl localhost:8080/index.html`.
+
+DO NOT EXPOSE THIS PORT. DO NOT RUN THIS AS ROOT.
+
 Criteria:
 
 * [Y] You'll probably need standard library functions like those in string.h (http://pubs.opengroup.org/onlinepubs/7908799/xsh/string.h.html). Implement them as you need them. Don't do it all at once.
@@ -12,7 +18,7 @@ Criteria:
 * [Y] Figure out how to send and receive data to/from TCP sockets. Just write a simple server you can talk to with telnet. After you send a message to it with telnet, print that message to the console (you may use printf) and send back a message through the socket informing the client that you correctly received it. There was a really good document about socket programming but I can't find it. In the meanwhile this (http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html) should suffice.
 * [Y] Apply what you did for your "offline HTTP server" to sockets. Communicate with the user through sockets with telnet instead of using the terminal.
 * [Y] Instead of returning arbitrary responses, now return files in the current directory that match the requested uri.
-* [] Implement full HTTP/1.1 (GET) requests and responses as opposed to the simple HTTP/1.0 ones you've been using until now. http://www.w3.org/Protocols/rfc2616/rfc2616.html chapters 4 through 6. Implement checks for badly formatted requests and return proper responses. In short, implement what you need for the status codes 200, 400 and 404. If it didn't so far, now everything should work with a web browser too.
+* [Y] Implement full HTTP/1.1 (GET) requests and responses as opposed to the simple HTTP/1.0 ones you've been using until now. http://www.w3.org/Protocols/rfc2616/rfc2616.html chapters 4 through 6. Implement checks for badly formatted requests and return proper responses. In short, implement what you need for the status codes 200, 400 and 404. If it didn't so far, now everything should work with a web browser too.
 * [] Only after everything works well and you're feeling pretty confident, try to make a multithreaded (with pthreads) socket server like that of point 6. To test it, simply open multiple telnet connections to it. If it only responds to one, it isn't working. If data from one thread is infecting another thread, kill yourself.
 * [] Apply the knowledge now acquired to make the HTTP server multithreading and respond to multiple requests at the same time.
 * [] Eat cookie.

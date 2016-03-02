@@ -1,60 +1,83 @@
 #include <linux/limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/socket.h>
 
 #include "cat.h"
 #include "ls.h"
+#include "parse.h"
 #include "server.h"
 #include "string.h"
 #include "types.h"
 
-void get(Response *resp, char *resource)
+
+int client_request(int connectionFD, Request *req)
 {
-    char filename[PATH_MAX];
-    char *searchFolder = "html";
+	char queryString[100]; // Presume length of query inc. \0 to be this at most.
+	int bytesReceived = recv(connectionFD, queryString, 100, 0);
 
-    memset(filename, 0, PATH_MAX);
+	*req = request_parse(queryString);
 
-    strcat(filename, searchFolder);
-    strcat(filename, resource);
-
-    if (find_resource("html", filename) == 1)
-    {
-        free(resource);
-
-        cat(filename, &(resp->body));
-    }
-
-    else
-    {
-        resp->body = "";
-    }
+	return 0;
 }
 
-Response build_response(Request *req)
+int respond_to_client(int connectionFD, Request *req)
 {
-    Response resp;
+	if (strcmp(req->protocol, "HTTP/1.1") != 0)
+	{
+		// 400
+		// TODO: CLEAN UP
+		send(connectionFD, "HTTP/1.1 400 Bad Request\n", 25, 0);
+		send(connectionFD, "Content-Type: text/plain\n", 25, 0);
+		send(connectionFD, "Content-Length: 16\n\r\n", 21, 0);
+		send(connectionFD, "400 Bad Request.", 16, 0);
 
-    if (strcmp(req->protocol, "HTTP/1.0") != 0)
-    {
-        fprintf(stderr, "Protocol `%s` not implemented\n", req->protocol);
-        return resp;
-    }
+		fprintf(stderr, "Protocol `%s` not implemented\n", req->protocol);
+		return 1;
+	}
 
-    free(req->protocol);
+	if (strcmp(req->method, "GET") == 0)
+	{
+		char filename[PATH_MAX];
+		const char *searchFolder = "html";
 
-    if (strcmp(req->method, "GET") == 0)
-    {
-        get(&resp, req->resource);
-    }
+		memset(filename, 0, PATH_MAX);
 
-    else
-    {
-        fprintf(stderr, "Not Implemented\n");
-    }
+		strcat(filename, searchFolder);
+		strcat(filename, req->resource);
 
-    free(req->method);
-    free(req->resource);
+		if (find_resource(searchFolder, filename) == 1)
+		{
+			// 200
+			// TODO: CLEAN UP
+			send(connectionFD, "HTTP/1.1 200 OK\n", 16, 0);
+			send(connectionFD, "Content-Type: text/html\n", 24, 0);
+			cat(filename, connectionFD);
+		}
 
-    return resp;
+		else
+		{
+			// 404
+			// TODO: CLEAN UP
+			send(connectionFD, "HTTP/1.1 404 Not Found\n", 23, 0);
+			send(connectionFD, "Content-Type: text/html\n", 24, 0);
+			send(connectionFD, "Content-Length: 14\n\r\n", 21, 0);
+			send(connectionFD, "404 Not Found.", 14, 0);
+		}
+	}
+
+	else
+	{
+		// 400
+		// TODO: CLEAN UP
+		send(connectionFD, "HTTP/1.1 400 Bad Request\n", 25, 0);
+		send(connectionFD, "Content-Type: text/plain\n", 25, 0);
+		send(connectionFD, "Content-Length: 16\n\r\n", 21, 0);
+		send(connectionFD, "400 Bad Request.", 16, 0);
+
+		fprintf(stderr, "Not Implemented\n");
+		return 1;
+	}
+
+	return 0;
 }

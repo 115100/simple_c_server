@@ -10,7 +10,6 @@ typedef struct
 
 typedef struct
 {
-    char *body;
     int statusCode;
     char *headers[];
 } Response;

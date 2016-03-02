@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 
@@ -17,51 +18,51 @@
 
 int bind_socket(struct addrinfo *res)
 {
-    struct addrinfo hints;
-    int sockFD;
+	struct addrinfo hints;
+	int sockFD;
 
-    memset(&hints, 0, sizeof(hints)); // Zero out struct
-    hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM; // TCP for Telnet
-    hints.ai_flags = AI_PASSIVE;
+	memset(&hints, 0, sizeof(hints)); // Zero out struct
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM; // TCP for Telnet
+	hints.ai_flags = AI_PASSIVE;
 
-    getaddrinfo(NULL, APP_PORT, &hints, &res);
+	getaddrinfo(NULL, APP_PORT, &hints, &res);
 
-    sockFD = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+	sockFD = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 
-    if (bind(sockFD, res->ai_addr, res->ai_addrlen) == -1)
-    {
-        fprintf(stderr, "Failed to bind to socket %d\n", sockFD);
+	if (bind(sockFD, res->ai_addr, res->ai_addrlen) == -1)
+	{
+		fprintf(stderr, "Failed to bind to socket %d\n", sockFD);
 
-        freeaddrinfo(res);
-        close(sockFD);
+		freeaddrinfo(res);
+		close(sockFD);
 
-        return -1;
-    }
+		return -1;
+	}
 
-    else
-    {
-        freeaddrinfo(res);
+	else
+	{
+		freeaddrinfo(res);
 
-        return sockFD;
-    }
+		return sockFD;
+	}
 }
 
 
 int accept_connection(int listenFD)
 {
-    struct sockaddr_storage theirAddr;
-    socklen_t addrSize;
+	struct sockaddr_storage theirAddr;
+	socklen_t addrSize;
 
-    int newFD;
+	int newFD;
 
-    // Listen for connections
+	// Listen for connections
 
-    listen(listenFD, BACKLOG);
+	listen(listenFD, BACKLOG);
 
-    addrSize = sizeof(theirAddr);
+	addrSize = sizeof(theirAddr);
 
-    newFD = accept(listenFD, (struct sockaddr *) &theirAddr, &addrSize);
+	newFD = accept(listenFD, (struct sockaddr *) &theirAddr, &addrSize);
 
-    return newFD;
+	return newFD;
 }
