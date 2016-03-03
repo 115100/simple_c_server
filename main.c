@@ -11,6 +11,7 @@
 int main()
 {
 	Request req;
+	memset(&req, 0, sizeof(req));
 
 	int listenFD, connectionFD;
 	struct addrinfo *res;
@@ -24,7 +25,7 @@ int main()
 	{
 		if ((connectionFD = accept_connection(listenFD)) == -1)
 		{
-			goto FREE;
+			continue;
 		}
 
 		if (client_request(connectionFD, &req))
@@ -38,10 +39,10 @@ int main()
 		}
 
 FREE:
-		free(req.method);
-		free(req.resource);
-		free(req.protocol);
 		close(connectionFD);
+		if (req.method) free(req.method);
+		if (req.resource) free(req.resource);
+		if (req.protocol) free(req.protocol);
 	}
 
 	// Free/close all handles/mallocs

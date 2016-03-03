@@ -8,10 +8,4 @@ typedef struct
     char *protocol;
 } Request;
 
-typedef struct
-{
-    int statusCode;
-    char *headers[];
-} Response;
-
 #endif // TYPES_H
