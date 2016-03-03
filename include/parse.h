@@ -2,6 +2,6 @@
 #define PARSE_H
 #include "types.h"
 
-Request request_parse();
+int request_parse(char *queryString, Request *req);
 
 #endif // PARSE_H

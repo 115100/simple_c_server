@@ -21,9 +21,7 @@ int client_request(int connectionFD, Request *req)
 	char queryString[100]; // Presume length of query inc. \0 to be this at most.
 	int bytesReceived = recv(connectionFD, queryString, 100, 0);
 
-	*req = request_parse(queryString);
-
-	return 0;
+	return request_parse(queryString, req);
 }
 
 int respond_to_client(int connectionFD, Request *req)
