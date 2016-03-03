@@ -18,10 +18,9 @@
 
 int bind_socket(struct addrinfo *res)
 {
-	struct addrinfo hints;
+	struct addrinfo hints = {0};
 	int sockFD;
 
-	memset(&hints, 0, sizeof(hints)); // Zero out struct
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM; // TCP for Telnet
 	hints.ai_flags = AI_PASSIVE;

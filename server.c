@@ -36,8 +36,6 @@ int respond_to_client(int connectionFD, Request *req)
 		http_send(connectionFD, "Content-Length: 16\n\r\n");
 		// TODO: CLEAN UP
 		http_send(connectionFD, "400 Bad Request.");
-
-		fprintf(stderr, "Protocol `%s` not implemented\n", req->protocol);
 		return 1;
 	}
 
@@ -78,8 +76,6 @@ int respond_to_client(int connectionFD, Request *req)
 		// TODO: CLEAN UP
 		http_send(connectionFD, "Content-Length: 16\n\r\n");
 		http_send(connectionFD, "400 Bad Request.");
-
-		fprintf(stderr, "Not Implemented\n");
 		return 1;
 	}
 

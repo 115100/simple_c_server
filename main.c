@@ -10,8 +10,7 @@
 
 int main()
 {
-	Request req;
-	memset(&req, 0, sizeof(req));
+	Request req = {0};
 
 	int listenFD, connectionFD;
 	struct addrinfo *res;
