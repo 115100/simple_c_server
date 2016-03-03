@@ -17,7 +17,6 @@ int main()
 
 	if ((listenFD = bind_socket(res)) == -1)
 	{
-		close(listenFD);
 		return 127;
 	}
 
