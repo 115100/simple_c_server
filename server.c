@@ -11,6 +11,11 @@
 #include "types.h"
 
 
+int http_send(int connectionFD, char *message)
+{
+	return send(connectionFD, message, strlen(message), 0);
+}
+
 int client_request(int connectionFD, Request *req)
 {
 	char queryString[100]; // Presume length of query inc. \0 to be this at most.
@@ -26,11 +31,11 @@ int respond_to_client(int connectionFD, Request *req)
 	if (strcmp(req->protocol, "HTTP/1.1") != 0)
 	{
 		// 400
+		http_send(connectionFD, "HTTP/1.1 400 Bad Request\n");
+		http_send(connectionFD, "Content-Type: text/plain\n");
+		http_send(connectionFD, "Content-Length: 16\n\r\n");
 		// TODO: CLEAN UP
-		send(connectionFD, "HTTP/1.1 400 Bad Request\n", 25, 0);
-		send(connectionFD, "Content-Type: text/plain\n", 25, 0);
-		send(connectionFD, "Content-Length: 16\n\r\n", 21, 0);
-		send(connectionFD, "400 Bad Request.", 16, 0);
+		http_send(connectionFD, "400 Bad Request.");
 
 		fprintf(stderr, "Protocol `%s` not implemented\n", req->protocol);
 		return 1;
@@ -49,31 +54,30 @@ int respond_to_client(int connectionFD, Request *req)
 		if (find_resource(searchFolder, filename) == 1)
 		{
 			// 200
-			// TODO: CLEAN UP
-			send(connectionFD, "HTTP/1.1 200 OK\n", 16, 0);
-			send(connectionFD, "Content-Type: text/html\n", 24, 0);
+			http_send(connectionFD, "HTTP/1.1 200 OK\n");
+			http_send(connectionFD, "Content-Type: text/html\n");
 			cat(filename, connectionFD);
 		}
 
 		else
 		{
 			// 404
+			http_send(connectionFD, "HTTP/1.1 404 Not Found\n");
+			http_send(connectionFD, "Content-Type: text/html\n");
 			// TODO: CLEAN UP
-			send(connectionFD, "HTTP/1.1 404 Not Found\n", 23, 0);
-			send(connectionFD, "Content-Type: text/html\n", 24, 0);
-			send(connectionFD, "Content-Length: 14\n\r\n", 21, 0);
-			send(connectionFD, "404 Not Found.", 14, 0);
+			http_send(connectionFD, "Content-Length: 14\n\r\n");
+			http_send(connectionFD, "404 Not Found.");
 		}
 	}
 
 	else
 	{
 		// 400
+		http_send(connectionFD, "HTTP/1.1 400 Bad Request\n");
+		http_send(connectionFD, "Content-Type: text/plain\n");
 		// TODO: CLEAN UP
-		send(connectionFD, "HTTP/1.1 400 Bad Request\n", 25, 0);
-		send(connectionFD, "Content-Type: text/plain\n", 25, 0);
-		send(connectionFD, "Content-Length: 16\n\r\n", 21, 0);
-		send(connectionFD, "400 Bad Request.", 16, 0);
+		http_send(connectionFD, "Content-Length: 16\n\r\n");
+		http_send(connectionFD, "400 Bad Request.");
 
 		fprintf(stderr, "Not Implemented\n");
 		return 1;
