@@ -17,6 +17,7 @@ int main()
 
 	if ((listenFD = bind_socket(res)) == -1)
 	{
+		close(listenFD);
 		return 127;
 	}
 
@@ -24,19 +25,20 @@ int main()
 	{
 		if ((connectionFD = accept_connection(listenFD)) == -1)
 		{
-			return 127;
+			goto FREE;
 		}
 
 		if (client_request(connectionFD, &req))
 		{
-			return 400;
+			goto FREE;
 		}
 
 		if (respond_to_client(connectionFD, &req))
 		{
-			return 500;
+			goto FREE;
 		}
 
+FREE:
 		free(req.method);
 		free(req.resource);
 		free(req.protocol);
