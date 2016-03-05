@@ -7,11 +7,5 @@
 // Take and parse user HTTP request
 int request_parse(char *queryString, Request *req)
 {
-	if (sscanf(queryString, "%ms %ms %ms", &(req->method), &(req->resource), &(req->protocol)) == EOF)
-	{
-		fprintf(stderr, "Query doesn't match pattern: %s\n", queryString);
-		return EOF;
-	}
-
-	return 0;
+	return sscanf(queryString, "%ms %ms %ms", &(req->method), &(req->resource), &(req->protocol));
 }

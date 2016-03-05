@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -27,7 +28,7 @@ int main()
 			continue;
 		}
 
-		if (client_request(connectionFD, &req))
+		if (client_request(connectionFD, &req) == EOF)
 		{
 			goto FREE;
 		}

@@ -18,7 +18,9 @@ int http_send(int connectionFD, char *message)
 
 int client_request(int connectionFD, Request *req)
 {
-	char queryString[100]; // Presume length of query inc. \0 to be this at most.
+	// Presume length of query inc. \0 to be this at most.
+	char queryString[100];
+
 	int bytesReceived = recv(connectionFD, queryString, 100, 0);
 
 	return request_parse(queryString, req);
