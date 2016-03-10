@@ -43,9 +43,13 @@ void *serve_loop(void *listenFD)
 
 FREE:
 		close(connectionFD);
-		if (req.method) free(req.method);
-		if (req.resource) free(req.resource);
-		if (req.protocol) free(req.protocol);
+
+		free(req.method);
+		req.method = NULL;
+		free(req.resource);
+		req.resource = NULL;
+		free(req.protocol);
+		req.protocol = NULL;
 	}
 }
 
