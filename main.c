@@ -28,7 +28,7 @@ int main()
 			continue;
 		}
 
-		if (client_request(connectionFD, &req) == EOF)
+		if (client_request(connectionFD, &req) != 3)
 		{
 			goto FREE;
 		}
