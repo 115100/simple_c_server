@@ -36,10 +36,7 @@ void *serve_loop(void *listenFD)
 			goto FREE;
 		}
 
-		if (respond_to_client(connectionFD, &req))
-		{
-			goto FREE;
-		}
+		respond_to_client(connectionFD, &req);
 
 FREE:
 		close(connectionFD);
