@@ -32,9 +32,7 @@ void *serve_loop(void *listenFD)
 		pthread_mutex_unlock(&lock);
 
 		if (client_request(connectionFD, &req) != 3)
-		{
 			goto FREE;
-		}
 
 		respond_to_client(connectionFD, &req);
 
@@ -59,14 +57,10 @@ int main()
 	pthread_t tid[NUM_THREADS];
 
 	if (pthread_mutex_init(&lock, NULL))
-	{
 		return 1;
-	}
 
 	if ((listenFD = bind_socket(res)) == -1)
-	{
 		return 127;
-	}
 
 	for (int i=0; i < NUM_THREADS; i++)
 	{

@@ -42,7 +42,6 @@ int bind_socket(struct addrinfo *res)
 	else
 	{
 		freeaddrinfo(res);
-
 		return sockFD;
 	}
 }
@@ -56,11 +55,8 @@ int accept_connection(int listenFD)
 	int newFD;
 
 	// Listen for connections
-
 	listen(listenFD, BACKLOG);
-
 	addrSize = sizeof(theirAddr);
-
 	newFD = accept(listenFD, (struct sockaddr *) &theirAddr, &addrSize);
 
 	return newFD;

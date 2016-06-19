@@ -35,10 +35,8 @@ int cat(char *file, int connectionFD)
 	send(connectionFD, contentLengthHeader, bytesRead, 0);
 
 	while (bytesRead = read(sfd, sendBuffer, MAX_SEND_BUFFER))
-	{
 		// Flush send buffer
 		bytesSent = send(connectionFD, sendBuffer, bytesRead, 0);
-	}
 
 	close(sfd);
 

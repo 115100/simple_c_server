@@ -23,14 +23,10 @@ int find_resource(const char *dir, char *search)
 	{
 
 		if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0)
-		{
 			continue;
-		}
 
 		if (strlen(dir) + strlen(dp->d_name) + 2 > sizeof(name))
-		{
 			fprintf(stderr, "Can't open %s\n; path too long", dir);
-		}
 
 		else
 		{
@@ -41,14 +37,10 @@ int find_resource(const char *dir, char *search)
 				memset(newFolder, 0, PATH_MAX);
 
 				if (dir[strlen(dir) - 1] == '/')
-				{
 					strcat(newFolder, dir);
-				}
 
 				else
-				{
 					sprintf(newFolder, "%s/", dir);
-				}
 
 				strcat(newFolder, dp->d_name);
 				found = find_resource(newFolder, search);
@@ -59,16 +51,12 @@ int find_resource(const char *dir, char *search)
 				sprintf(name, "%s/%s", dir, dp->d_name);
 
 				if (strcmp(name, search) == 0)
-				{
 					found = 1;
-				}
 			}
 		}
 
 		if (found)
-		{
 			break;
-		}
 
 	}
 
